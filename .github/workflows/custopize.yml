@@ -66,7 +66,7 @@ jobs:
         OCTOPI_VERSION="${{ env.OCTOPI_VERSION }}"
         OCTOPRINT_VERSION="${{ env.OCTOPRINT_VERSION }}"
         
-        IMAGE="octopi-$OCTOPI_VERSION-$OCTOPRINT_VERSION.img"
+        IMAGE="octopi-$OCTOPI_VERSION-$OCTOPRINT_VERSION-ustreamer.img"
         echo "IMAGE=$IMAGE" >> $GITHUB_ENV
 
         cd build
@@ -77,7 +77,7 @@ jobs:
     
     - name: "📝 Prepare release"
       run: |
-        RELEASE_NAME="OctoPi ${{ env.OCTOPI_VERSION }} with OctoPrint ${{ env.OCTOPRINT_VERSION }}"
+        RELEASE_NAME="OctoPi ${{ env.OCTOPI_VERSION }} with OctoPrint ${{ env.OCTOPRINT_VERSION }} and µStreamer"
         echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
 
         RELEASE_TAG="${{ env.OCTOPI_VERSION }}.op${{ env.OCTOPRINT_VERSION }}"
