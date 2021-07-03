@@ -1,33 +1,38 @@
-name: "dispatch"
+name: "Dispatch"
 
 on:
+  schedule:
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
   build:
-    name: "Test"
+    name: "Check Versions"
     runs-on: ubuntu-latest
     steps:
 
-    - name: "⬇ Checkout"
+    - name: ⬇ Checkout
       uses: actions/checkout@v2
 
     - id: my_latestrelease
+      name: ⬇ Get My Version
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: ${{ github.repository }}
 
     - id: octoprint_latestrelease
+      name: ⬇ Get OctoPrint Version
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: OctoPrint/OctoPrint
 
     - id: octopi_latestrelease
+      name: ⬇ Get OctoPi Version
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: guysoft/OctoPi
 
-    - name: "print versions"
+    - name: 💁 Print Versions
       run: |
         echo "my version: ${{ steps.my_latestrelease.outputs.release }}"
         echo "octoprint version: ${{ steps.octoprint_latestrelease.outputs.release }}"
