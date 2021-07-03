@@ -2,11 +2,6 @@ name: "dispatch"
 
 on:
   workflow_dispatch:
-    inputs:
-      octoprint_version:
-        description: "OctoPrint version (leave empty to use latest stable release)"
-        required: false
-        default: ''
 
 jobs:
   build:
