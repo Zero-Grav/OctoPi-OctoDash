@@ -1,6 +1,6 @@
-# 🤖 OctoPi-UpToDate
+# 🤖 OctoPi-UpToDateUstreamer
 
-*The latest OctoPi release with the latest OctoPrint already included*
+*The latest OctoPi release with the latest OctoPrint already included and [µStreamer](https://github.com/pikvm/ustreamer) as replacement to mjpg-streamer*
 
 This repository automatically updates the OctoPrint installation on the latest OctoPi image
 and provides the resulting image ready to flash. Checkout the [releases](https://github.com/OctoPrint/OctoPi-UpToDate/releases).
