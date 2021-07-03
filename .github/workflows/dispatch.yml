@@ -17,28 +17,23 @@ jobs:
     - name: "⬇ Checkout"
       uses: actions/checkout@v2
 
-    - name: "🔎 Determine OctoPrint version"
-      run: |
-        if [[ "${{ github.event_name }}" = "repository_dispatch" ]]; then
-          OCTOPRINT_VERSION="${{ github.event.client_payload.version }}"
-        else
-          OCTOPRINT_VERSION="${{ github.event.inputs.octoprint_version }}"
-        fi
-
-        if [ -z "$OCTOPRINT_VERSION" ]; then
-          OCTOPRINT_VERSION=$(curl https://pypi.org/pypi/OctoPrint/json -s | jq -r '.info.version')
-        fi
-
-        # Make sure we have a published version
-        curl -fsSL --output /dev/null --head https://pypi.org/pypi/OctoPrint/$OCTOPRINT_VERSION/ || exit 1
-
-        echo "OCTOPRINT_VERSION=$OCTOPRINT_VERSION" >> $GITHUB_ENV
-
-    - id: latestrelease
+    - id: my_latestrelease
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: ${{ github.repository }}
 
-    - name: "print version"
+    - id: octoprint_latestrelease
+      uses: pozetroninc/github-action-get-latest-release@master
+      with:
+        repository: OctoPrint/OctoPrint
+
+    - id: octopi_latestrelease
+      uses: pozetroninc/github-action-get-latest-release@master
+      with:
+        repository: guysoft/OctoPi
+
+    - name: "print versions"
       run: |
-        echo "${{ steps.latestrelease.outputs.release }}"
+        echo "my version: ${{ steps.my_latestrelease.outputs.release }}"
+        echo "octoprint version: ${{ steps.octoprintlatestrelease.outputs.release }}"
+        echo "my version: ${{ steps.octopilatestrelease.outputs.release }}"
