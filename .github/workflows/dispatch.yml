@@ -1,0 +1,44 @@
+name: "dispatch"
+
+on:
+  workflow_dispatch:
+    inputs:
+      octoprint_version:
+        description: "OctoPrint version (leave empty to use latest stable release)"
+        required: false
+        default: ''
+
+jobs:
+  build:
+    name: "Test"
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: "⬇ Checkout"
+      uses: actions/checkout@v2
+
+    - name: "🔎 Determine OctoPrint version"
+      run: |
+        if [[ "${{ github.event_name }}" = "repository_dispatch" ]]; then
+          OCTOPRINT_VERSION="${{ github.event.client_payload.version }}"
+        else
+          OCTOPRINT_VERSION="${{ github.event.inputs.octoprint_version }}"
+        fi
+
+        if [ -z "$OCTOPRINT_VERSION" ]; then
+          OCTOPRINT_VERSION=$(curl https://pypi.org/pypi/OctoPrint/json -s | jq -r '.info.version')
+        fi
+
+        # Make sure we have a published version
+        curl -fsSL --output /dev/null --head https://pypi.org/pypi/OctoPrint/$OCTOPRINT_VERSION/ || exit 1
+
+        echo "OCTOPRINT_VERSION=$OCTOPRINT_VERSION" >> $GITHUB_ENV
+
+    - id: latestrelease
+      uses: pozetroninc/github-action-get-latest-release@master
+      with:
+        repository: ${{ github.repository }}
+
+    - name: "print version"
+      run: |
+        echo "${{ steps.latestrelease.outputs.release }}"
