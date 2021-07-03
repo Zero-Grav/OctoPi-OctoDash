@@ -2,6 +2,11 @@ name: "dispatch"
 
 on:
   workflow_dispatch:
+    inputs:
+      octoprint_version:
+        description: "OctoPrint version (leave empty to use latest stable release)"
+        required: false
+        default: ''
 
 jobs:
   build:
@@ -32,3 +37,12 @@ jobs:
         echo "my version: ${{ steps.my_latestrelease.outputs.release }}"
         echo "octoprint version: ${{ steps.octoprint_latestrelease.outputs.release }}"
         echo "octopi version: ${{ steps.octopi_latestrelease.outputs.release }}"
+
+    - name: 🚀 Repository Dispatch
+      if: ${{ format('{0}.op{1}', steps.octopi_latestrelease.outputs.release, steps.octoprint_latestrelease.outputs.release) != steps.my_latestrelease.outputs.release }}
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPODISPATCH_TOKEN }}
+        repository: OctoPrint/OctoPi-UpToDate
+        event-type: octoprint_release
+        client-payload: '{"version": "${{ github.ref }}"}'
