@@ -43,6 +43,6 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.REPODISPATCH_TOKEN }}
-        repository: OctoPrint/OctoPi-UpToDate
+        repository: jneilliii/OctoPi-UpToDateUstreamer
         event-type: octoprint_release
-        client-payload: '{"version": "${{ github.ref }}"}'
+        client-payload: '{"version": "${{ steps.octoprint_latestrelease.outputs.release }}"}'
