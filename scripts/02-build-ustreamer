@@ -8,9 +8,11 @@ install_cleanup_trap
 
 apt install --yes libevent-dev libjpeg8-dev libbsd-dev libraspberrypi-dev
 
+cd /home/pi
 git clone --depth=1 https://github.com/pikvm/ustreamer
 cd ustreamer
 make WITH_OMX=1
+cp ./ustreamer /usr/local/bin/ustreamer
 useradd -r ustreamer
 usermod -a -G video ustreamer
 
