@@ -6,7 +6,7 @@ export LC_ALL=C
 source /common.sh
 install_cleanup_trap
 
-apt install libevent-dev libjpeg8-dev libbsd-dev libraspberrypi-dev
+apt install --yes libevent-dev libjpeg8-dev libbsd-dev libraspberrypi-dev
 
 git clone --depth=1 https://github.com/pikvm/ustreamer
 cd ustreamer
