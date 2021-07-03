@@ -1,0 +1,19 @@
+[Unit]
+Description=A server for streaming Motion-JPEG from a video capture device
+After=network.target
+
+[Service]
+Environment=USTREAMER_BIN=/usr/local/bin/ustreamer
+Environment=HOST=127.0.0.1
+Environment=PORT=8080
+Environment=RESOLUTION=1920x1080
+Environment=FPS=5
+Environment=ENCODER=HW
+Environment=FORMAT=MJPEG
+EnvironmentFile=-/etc/default/ustreamer
+EnvironmentFile=-/etc/default/ustreamer@%I
+User=ustreamer
+ExecStart=/bin/sh -c "exec ${USTREAMER_BIN} --device=/dev/%I --host=${HOST} --port ${PORT} --resolution ${RESOLUTION} --desired-fps=${FPS} --encoder=${ENCODER} --format ${FORMAT} --slowdown"
+
+[Install]
+WantedBy=multi-user.target
