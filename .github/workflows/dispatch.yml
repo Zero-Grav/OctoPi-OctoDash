@@ -35,5 +35,5 @@ jobs:
     - name: "print versions"
       run: |
         echo "my version: ${{ steps.my_latestrelease.outputs.release }}"
-        echo "octoprint version: ${{ steps.octoprintlatestrelease.outputs.release }}"
-        echo "my version: ${{ steps.octopilatestrelease.outputs.release }}"
+        echo "octoprint version: ${{ steps.octoprint_latestrelease.outputs.release }}"
+        echo "my version: ${{ steps.octopi_latestrelease.outputs.release }}"
