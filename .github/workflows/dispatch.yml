@@ -32,14 +32,21 @@ jobs:
       with:
         repository: guysoft/OctoPi
 
+    - id: octodash_latestrelease
+      name: ⬇ Get OctoDash Version
+      uses: pozetroninc/github-action-get-latest-release@master
+      with:
+        repository: UnchartedBull/OctoDash
+
     - name: 💁 Print Versions
       run: |
         echo "my version: ${{ steps.my_latestrelease.outputs.release }}"
         echo "octoprint version: ${{ steps.octoprint_latestrelease.outputs.release }}"
         echo "octopi version: ${{ steps.octopi_latestrelease.outputs.release }}"
+        echo "octodash version: ${{ steps.octodash_latestrelease.outputs.release }}"
 
     - name: 🚀 Repository Dispatch
-      if: ${{ format('{0}.op{1}', steps.octopi_latestrelease.outputs.release, steps.octoprint_latestrelease.outputs.release) != steps.my_latestrelease.outputs.release }}
+      if: ${{ format('{0}.op{1}.od{2}', steps.octopi_latestrelease.outputs.release, steps.octoprint_latestrelease.outputs.release, steps.octodash_latestrelease.outputs.release) != steps.my_latestrelease.outputs.release }}
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.REPODISPATCH_TOKEN }}
