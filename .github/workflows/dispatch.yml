@@ -15,25 +15,25 @@ jobs:
       uses: actions/checkout@v2
 
     - id: my_latestrelease
-      name: ⬇ Get My Version
+      name: 🔎 Get My Version
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: ${{ github.repository }}
 
     - id: octoprint_latestrelease
-      name: ⬇ Get OctoPrint Version
+      name: 🔎 Get OctoPrint Version
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: OctoPrint/OctoPrint
 
     - id: octopi_latestrelease
-      name: ⬇ Get OctoPi Version
+      name: 🔎 Get OctoPi Version
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: guysoft/OctoPi
 
     - id: octodash_latestrelease
-      name: ⬇ Get OctoDash Version
+      name: 🔎 Get OctoDash Version
       uses: pozetroninc/github-action-get-latest-release@master
       with:
         repository: UnchartedBull/OctoDash
