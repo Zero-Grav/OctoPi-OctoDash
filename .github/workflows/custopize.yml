@@ -63,7 +63,7 @@ jobs:
         sudo modprobe loop
         docker run --rm --privileged \
           -e OCTOPRINT_VERSION=${{ env.OCTOPRINT_VERSION }} \
-          -v ${{ github.workspace }}/scripts/files/config.local:/CustoPiZer/config.local
+          -v ${{ github.workspace }}/scripts/files/config.local:/CustoPiZer/config.local \
           -v ${{ github.workspace }}/build:/CustoPiZer/workspace \
           -v ${{ github.workspace }}/scripts:/CustoPiZer/workspace/scripts \
           ghcr.io/octoprint/custopizer:latest
